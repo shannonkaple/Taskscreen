@@ -1,0 +1,70 @@
+@font-face{font-family:"KAHomebodyClub";src:url("./KAHomebodyClub.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"VAGTaskscreen";src:url("./VAG-Rounded-Std-Black_47296.ttf") format("truetype");font-display:swap}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:"VAGTaskscreen",Arial,sans-serif;
+  color:#332B52;
+  background:
+    radial-gradient(circle at 10% 5%,rgba(243,35,124,.16),transparent 25%),
+    radial-gradient(circle at 90% 7%,rgba(34,184,244,.17),transparent 25%),
+    linear-gradient(180deg,#fffaf7,#fbfafc);
+}
+button,input{font:inherit}
+.cleanup-board{width:100vw;height:100vh;padding:16px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px;position:relative}
+.back-arrow{
+  position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:20;
+  width:48px;height:62px;border:3px solid #000;border-radius:18px;background:#fff;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;color:#332B52;font-size:36px
+}
+.cleanup-header{text-align:center;padding:2px 90px}
+.cleanup-title{
+  font-family:"KAHomebodyClub","VAGTaskscreen",sans-serif;font-size:clamp(58px,7vw,112px);line-height:.78;
+  color:#F3237C;-webkit-text-stroke:2px #000;paint-order:stroke fill;
+  text-shadow:3px 3px 0 #FFD31B,-3px 3px 0 #22B8F4
+}
+.cleanup-subtitle{margin-top:12px;font-size:clamp(20px,2vw,34px);color:#332B52;text-align:center}
+.cleanup-main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:14px}
+.video-card{
+  min-height:0;border:5px solid #000;border-radius:28px;background:#49AFE0;padding:10px;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;gap:8px
+}
+.cleanup-video{min-height:0;border-radius:19px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cleanup-video video,.cleanup-video iframe{width:100%;height:100%;border:0;object-fit:contain}
+.video-empty{font-family:"KAHomebodyClub","VAGTaskscreen",sans-serif;font-size:clamp(28px,3vw,52px);color:#49AFE0;text-align:center}
+.video-editor{gap:5px;align-items:center;justify-content:center;flex-wrap:wrap}
+.video-editor input{min-width:220px;flex:1;border:2px solid #000;border-radius:999px;padding:6px 11px;background:#fff}
+.edit-pill{border:2px solid #000;border-radius:999px;background:#fff;padding:6px 10px;font-size:10px;cursor:pointer}
+.edit-pill.danger{background:#FFE5ED}
+.cleanup-side{min-height:0;display:flex;flex-direction:column;gap:10px}
+.cleanup-timer-title,.ready-title{
+  text-align:center;font-family:"KAHomebodyClub","VAGTaskscreen",sans-serif;font-size:clamp(22px,2vw,35px);
+  color:#fff;-webkit-text-stroke:1px #000;paint-order:stroke fill
+}
+.cleanup-side>div,.ready-card{border:4px solid #000;border-radius:22px}
+.cleanup-timer-title{background:#CF67CE;border:4px solid #000;border-bottom:0;border-radius:22px 22px 0 0;padding:9px 4px}
+.cleanup-timer-input{
+  width:100%;border:4px solid #000;border-top:0;background:#fff;text-align:center;
+  font-size:clamp(46px,5vw,78px);padding:7px;border-radius:0
+}
+.timer-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;background:#CF67CE;border:4px solid #000;border-top:0;border-radius:0 0 22px 22px;padding:7px}
+.timer-buttons button{border:2px solid #000;border-radius:999px;background:#fff;padding:5px 2px;font-size:9px}
+.ready-card{margin-top:auto;background:#91D448;padding:10px}
+.ready-title{margin-bottom:8px}
+.ready-text{background:#fff;border:3px solid #000;border-radius:14px;padding:12px;text-align:center;font-size:clamp(17px,1.55vw,25px);line-height:1.05}
+.cleanup-controls{
+  position:absolute;right:16px;bottom:12px;z-index:20;display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.94);border:2px solid #000;border-radius:999px;padding:4px 5px 4px 10px
+}
+.cleanup-controls span{font-size:9px}
+.cleanup-controls button{border:2px solid #000;border-radius:999px;background:#fff;padding:5px 10px;font-size:9px}
+.edit-only{display:none}body.edit-mode .edit-only{display:flex}
+body.edit-mode #cleanupTitle,body.edit-mode #cleanupSubtitle,body.edit-mode #readyTitle,body.edit-mode #readyText{
+  outline:2px solid #000;border-radius:6px;background:rgba(255,255,255,.35)
+}
+@media(max-width:900px){
+  .cleanup-board{padding:9px}
+  .cleanup-main{grid-template-columns:minmax(0,1fr) 190px;gap:8px}
+  .back-arrow{width:36px;height:48px;font-size:27px}
+  .cleanup-header{padding:2px 55px}
+}

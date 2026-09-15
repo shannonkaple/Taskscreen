@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Clean Up Board</title>
+<link rel="stylesheet" href="./cleanup.css">
+</head>
+<body>
+<div class="cleanup-board">
+  <a class="back-arrow" href="./index.html" aria-label="Back to task screen">←</a>
+
+  <header class="cleanup-header">
+    <div class="cleanup-title" id="cleanupTitle">CLEAN UP!</div>
+    <div class="cleanup-subtitle" id="cleanupSubtitle">Clean your space • Return materials • Sit ready</div>
+  </header>
+
+  <main class="cleanup-main">
+    <section class="video-card">
+      <div class="cleanup-video" id="cleanupVideo">
+        <div class="video-empty">ADD YOUR CLEAN UP VIDEO</div>
+      </div>
+      <div class="video-editor edit-only">
+        <label class="edit-pill">UPLOAD VIDEO<input id="cleanupVideoFile" type="file" accept="video/*" hidden></label>
+        <input id="cleanupVideoUrl" type="url" placeholder="Paste YouTube or MP4 URL">
+        <button class="edit-pill" id="useCleanupUrl" type="button">USE URL</button>
+        <button class="edit-pill danger" id="clearCleanupVideo" type="button">CLEAR</button>
+      </div>
+    </section>
+
+    <aside class="cleanup-side">
+      <div class="cleanup-timer-title">CLEAN UP TIMER</div>
+      <input id="cleanupTimerInput" class="cleanup-timer-input" value="5:00" inputmode="numeric">
+      <div class="timer-buttons">
+        <button id="cleanupStart">START</button>
+        <button id="cleanupPause">PAUSE</button>
+        <button id="cleanupReset">RESET</button>
+      </div>
+
+      <div class="ready-card">
+        <div class="ready-title" id="readyTitle">WHEN YOU'RE DONE</div>
+        <div class="ready-text" id="readyText">Sit in your seat and show me you are ready.</div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="cleanup-controls">
+    <span id="cleanupGrade"></span>
+    <button id="cleanupEdit" type="button">EDIT</button>
+  </div>
+</div>
+<script src="./cleanup.js"></script>
+</body>
+</html>
