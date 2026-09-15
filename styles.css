@@ -1,0 +1,284 @@
+@font-face{
+  font-family:"KAHomebodyClub";
+  src:url("./KAHomebodyClub.ttf") format("truetype");
+  font-display:swap;
+}
+@font-face{
+  font-family:"VAGTaskscreen";
+  src:url("./VAG-Rounded-Std-Black_47296.ttf") format("truetype");
+  font-display:swap;
+}
+:root{
+  --ink:#17131e;
+  --outline:#000;
+  --objective:#FFD31B;
+  --voice:#CF67CE;
+  --timer:#FF6A0A;
+  --task:#49AFE0;
+  --reminders:#91D448;
+  --bath-neutral:#F1EAF4;
+  --stroke:5px;
+  --panel-radius:28px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+body{font-family:"VAGTaskscreen","Arial Rounded MT Bold",Arial,sans-serif;color:var(--ink)}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.board{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  padding:10px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:repeat(8,1fr);
+  gap:9px;
+  background:#fff;
+}
+.panel{
+  position:relative;
+  min-width:0;
+  min-height:0;
+  border:var(--stroke) solid #000;
+  border-radius:var(--panel-radius);
+  overflow:hidden;
+}
+.objective{grid-column:1/6;grid-row:1/3;background:var(--objective);padding:8px 11px;display:flex;flex-direction:column;gap:5px}
+.voice{grid-column:6/8;grid-row:1/3;background:var(--voice);padding:8px 8px 7px;display:flex;flex-direction:column}
+.timer{grid-column:8/13;grid-row:1/3;background:var(--timer);padding:8px 10px;display:flex;flex-direction:column}
+.task{grid-column:1/8;grid-row:3/9;background:var(--task);padding:9px 10px;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:5px}
+.reminders{grid-column:8/13;grid-row:3/6;background:var(--reminders);padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.bathroom{grid-column:8/13;grid-row:6/9;background:var(--bath-neutral);padding:6px 8px;display:grid;grid-template-rows:auto auto minmax(0,1fr) 70px;gap:4px;transition:background .18s ease}
+
+.panel-title{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-family:"KAHomebodyClub","VAGTaskscreen",sans-serif;
+  font-size:clamp(28px,3vw,55px);
+  line-height:.9;
+  text-transform:uppercase;
+  color:#fff;
+  -webkit-text-stroke:1.3px #000;
+  paint-order:stroke fill;
+  text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+  white-space:nowrap;
+}
+.title-icon{width:1em;height:1em;flex:0 0 auto;overflow:visible}
+.task-star-img{width:clamp(32px,3.3vw,60px);height:auto;object-fit:contain;flex:0 0 auto}
+.task-title{font-size:clamp(34px,3.7vw,66px)}
+
+[data-edit-key],[data-edit-voice-label],[data-table-label]{outline:none}
+body.edit-mode [contenteditable="true"]{
+  box-shadow:0 0 0 2px rgba(0,0,0,.7);
+  border-radius:5px;
+  background:rgba(255,255,255,.24);
+}
+
+.objective-input{
+  flex:1;
+  min-height:0;
+  width:100%;
+  resize:none;
+  border:3px solid #000;
+  border-radius:18px;
+  background:#fff;
+  padding:7px 12px;
+  color:#17131e;
+  font-size:clamp(22px,2.1vw,38px);
+  line-height:1.05;
+  font-family:"VAGTaskscreen","Arial Rounded MT Bold",sans-serif;
+}
+body:not(.edit-mode) .objective-input{pointer-events:none}
+
+.voice .panel-title{font-size:clamp(30px,3vw,54px)}
+.voice-buttons{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:2px;align-items:center}
+.voice-btn{
+  min-width:0;
+  aspect-ratio:1/1;
+  border:3px solid #000;
+  border-radius:50%;
+  background:var(--vc);
+  color:#fff;
+  font-size:clamp(30px,3vw,54px);
+  line-height:1;
+  font-family:"VAGTaskscreen",sans-serif;
+  -webkit-text-stroke:.8px #000;
+  paint-order:stroke fill;
+  padding:0;
+}
+.voice-btn.active{box-shadow:inset 0 0 0 4px #fff;transform:scale(.96)}
+.voice-label{
+  margin-top:auto;
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:clamp(28px,2.65vw,46px);
+  line-height:.9;
+  text-transform:uppercase;
+  color:#fff;
+  -webkit-text-stroke:1px #000;
+  paint-order:stroke fill;
+  text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+}
+
+.timer .panel-title{font-size:clamp(28px,2.8vw,50px)}
+.timer-body{flex:1;min-height:0;display:grid;grid-template-columns:.82fr 1.18fr;gap:8px}
+.end-card,.count-card{min-width:0;background:rgba(255,255,255,.9);border:3px solid #000;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.end-label{font-size:clamp(12px,1vw,17px);text-transform:uppercase}
+#endTimeInput{width:90%;border:0;background:transparent;text-align:center;font-size:clamp(21px,2.05vw,37px);font-family:"VAGTaskscreen",sans-serif;outline:none}
+.end-time-display{border:0;background:transparent;color:#17131e;font-size:clamp(22px,2.1vw,38px);font-family:"VAGTaskscreen",sans-serif;padding:0}
+#countdown{font-size:clamp(27px,2.9vw,52px);line-height:1}
+.count-labels{font-size:clamp(8px,.72vw,12px);white-space:nowrap;text-transform:uppercase}
+body.edit-mode #endTimeDisplay{display:none}
+body:not(.edit-mode) #endTimeInput{display:none}
+
+.task-sub{
+  width:calc(100% - 12px);
+  justify-self:center;
+  min-height:38px;
+  max-height:72px;
+  overflow:auto;
+  border:2px solid rgba(0,0,0,.25);
+  border-radius:999px;
+  background:rgba(255,255,255,.86);
+  padding:6px 18px 7px;
+  text-align:center;
+  font-size:clamp(18px,1.65vw,30px);
+  line-height:1.02;
+  color:#16496f;
+}
+.task-sub:empty::before{content:attr(data-placeholder);opacity:.58}
+.task-stage{position:relative;min-height:0;border:0;border-radius:22px;background:#fff;overflow:hidden}
+.task-preview{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center}
+.task-preview img,.task-preview video,.task-preview iframe{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border:0}
+.task-preview iframe{width:100%;height:100%}
+.task-text-preview{font-size:clamp(28px,3.3vw,58px);line-height:1.04;white-space:pre-wrap}
+.task-empty{font-size:clamp(18px,1.7vw,28px);color:#37749b}
+.empty-image-icon{width:clamp(74px,8vw,130px);height:auto;display:block;margin:0 auto 6px}
+.task-editor{position:absolute;left:9px;right:9px;top:8px;z-index:15;background:rgba(255,255,255,.97);border:3px solid #000;border-radius:15px;padding:7px;box-shadow:0 5px 16px rgba(0,0,0,.15)}
+.mode-row{display:flex;gap:5px;margin-bottom:6px}
+.mode-btn,.file-btn,.clear-task{border:2px solid #000;border-radius:999px;background:#f4f4f4;padding:5px 10px;font-size:11px;text-transform:uppercase}
+.mode-btn.active{background:#D5F0FE}
+.task-control{display:none;gap:5px;align-items:center}
+.task-control.active{display:flex}
+.task-control textarea{width:100%;min-height:58px;resize:vertical;border:2px solid #000;border-radius:10px;padding:6px 8px}
+.task-control input[type="url"]{flex:1;min-width:0;border:2px solid #000;border-radius:10px;padding:6px 8px}
+.clear-task{margin-top:6px;background:#ffe7ec}
+
+.reminders .panel-title{font-size:clamp(27px,2.8vw,50px)}
+.reminder-list{flex:1;min-height:0;display:flex;flex-direction:column;gap:5px;overflow:auto}
+.reminder-row{display:grid;grid-template-columns:26px 1fr 25px;gap:6px;align-items:center;min-height:32px;background:rgba(255,255,255,.86);border:2px solid rgba(0,0,0,.16);border-radius:12px;padding:3px 5px}
+.reminder-check{width:21px;height:21px;accent-color:#56A328}
+.reminder-text{width:100%;min-width:0;border:0;background:transparent;outline:none;font-size:clamp(15px,1.32vw,23px);font-family:"VAGTaskscreen",sans-serif}
+.reminder-remove{display:none;border:0;background:transparent;font-size:21px;line-height:1}
+body.edit-mode .reminder-remove{display:block}
+body:not(.edit-mode) .reminder-text{pointer-events:none}
+.add-reminder{align-self:center;border:2px solid #000;border-radius:999px;background:#fff;padding:4px 12px;font-size:10px}
+
+.bathroom-title{font-size:clamp(27px,2.85vw,51px)}
+.bathroom-current{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:3px solid #000;
+  border-radius:14px;
+  background:#fff;
+  color:#fff;
+  text-align:center;
+  font-size:clamp(38px,4vw,70px);
+  line-height:.88;
+  text-transform:uppercase;
+  -webkit-text-stroke:1px #000;
+  paint-order:stroke fill;
+  text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+}
+.bathroom-current.is-empty{
+  display:flex;
+  background:#fff;
+  border-color:#000;
+  color:transparent;
+  text-shadow:none;
+  -webkit-text-stroke:0 transparent;
+}
+.bathroom-current.flash{animation:flash 1s ease-in-out infinite}
+@keyframes flash{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.63;transform:scale(1.02)}}
+.bathroom-main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:6px;align-items:center;overflow:hidden}
+.bathroom-badge-wrap{height:100%;min-height:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.86);border-radius:15px;padding:3px 7px}
+.bathroom-badge-img{display:block;width:min(100%,155px);max-height:100%;object-fit:contain}
+.doorbell-wrap{height:100%;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.9);border-radius:15px;padding:4px}
+.doorbell-wrap img{width:48px;height:48px;object-fit:contain;flex:0 0 auto}
+.doorbell-text{text-align:center;font-size:clamp(13px,1.15vw,20px);line-height:.93;color:#332B52;text-transform:uppercase}
+.table-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:5px;min-height:0}
+.table-btn{min-width:0;min-height:0;border:3px solid var(--c);border-radius:12px;background:var(--soft);color:var(--c);font-size:clamp(13px,1.05vw,19px);text-transform:uppercase;overflow:hidden}
+.table-btn.active{background:#fff;box-shadow:inset 0 0 0 3px var(--c);transform:scale(.97)}
+.table-btn.called:not(.active){background:#E3E4E8!important;color:#8A8F99!important;border-color:#BFC4CC;opacity:.75}
+.bathroom-actions{position:absolute;right:7px;bottom:5px;display:flex;gap:3px;z-index:10}
+.mini-btn{border:2px solid #332B52;border-radius:999px;background:#fff;padding:2px 7px;font-size:8px}
+
+.panel-tools{
+  position:absolute;
+  top:4px;
+  right:5px;
+  z-index:40;
+  display:flex;
+  align-items:center;
+  gap:2px;
+  padding:2px 4px;
+  background:rgba(255,255,255,.96);
+  border:2px solid #000;
+  border-radius:999px;
+}
+.panel-tools span{font-size:7px;color:#000;-webkit-text-stroke:0;text-shadow:none}
+.panel-tools button{width:25px;height:22px;border:1.5px solid #000;border-radius:999px;background:#fff;padding:0;font-size:9px}
+.edit-only{display:none}
+body.edit-mode .edit-only{display:flex}
+
+.grade-switch,.utilities{
+  position:absolute;
+  z-index:70;
+  bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:4px;
+  border:2px solid #000;
+  border-radius:999px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 3px 10px rgba(0,0,0,.12)
+}
+.grade-switch{left:16px}
+.utilities{right:16px}
+.grade-btn,.utility{height:30px;border:0;border-radius:999px;background:transparent;padding:0 11px;font-size:10px}
+.grade-btn.active{background:#332B52;color:#fff}
+.utility{background:#fff;border:2px solid #000;font-size:10px}
+.save-status{font-size:8px;padding-left:5px;opacity:.45}
+.save-status.saving{opacity:1}
+
+@media(max-width:850px){
+  :root{--stroke:3px;--panel-radius:19px}
+  .board{padding:6px;gap:6px}
+  .panel-title{font-size:clamp(22px,2.65vw,40px)}
+  .task-title{font-size:clamp(27px,3.2vw,50px)}
+  .task-sub{min-height:31px;padding:4px 12px 5px}
+  .bathroom{grid-template-rows:auto auto minmax(0,1fr) 58px}
+  .bathroom-main{grid-template-columns:minmax(0,1fr) 86px}
+  .doorbell-wrap img{width:36px;height:36px}
+  .doorbell-text{font-size:clamp(10px,1vw,15px)}
+  .bathroom-badge-img{width:min(100%,125px)}
+  .bathroom-current{min-height:46px}
+  .grade-switch,.utilities{bottom:8px}
+}
+
+
+@media(max-width:1100px){
+  .voice .panel-title{font-size:clamp(25px,2.8vw,43px)}
+  .voice-btn{font-size:clamp(24px,2.7vw,42px)}
+  .voice-label{font-size:clamp(22px,2.35vw,36px);min-height:36px}
+}
